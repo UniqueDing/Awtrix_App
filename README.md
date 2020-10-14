@@ -11,7 +11,7 @@ Designed By blueforcer
 ## Install
 
 Downloads xxx.jar on realease page.  
-Move them into Awtrix Server "Apps" file folder.
+Move them into Awtrix Server "Apps" file folder.  
 Finally, go to Awtrix Server Web Terminal input "reload apps" 
 
 ## Apps
