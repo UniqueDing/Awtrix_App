@@ -9,9 +9,13 @@ Sub Class_Globals
 	Dim App As AWTRIX
 	
 	'Declare your variables here
-	Dim scroll As Int
-	Dim fans As String ="0"
-	Dim nums As String ="0"
+	Dim scroll1 As Int
+	Dim scroll2 As Int
+	Dim scroll3 As Int
+	Dim play_count As String ="0"
+	Dim coin_count As String ="0"
+	Dim like_count As String ="0"
+	Dim collect_count As String ="0"
 End Sub
 
 ' ignore
@@ -30,37 +34,34 @@ Public Sub Initialize() As String
 	App.Initialize(Me,"App")
 	
 	'App name (must be unique, avoid spaces)
-	App.name="NeteaseMusic"
+	App.name="BilibiliVideo"
 	
 	'Version of the App
 	App.version="1.0"
 	
 	'Description of the App. You can use HTML to format it
-	App.description="show your netease music fans and total listened music number"
+	App.description="show your bilibili video SAN LIAN"
 		
 	App.author="UniqueDing"
 			
-	App.coverIcon = 1296
+	App.coverIcon = 1442
 	
 	'How many downloadhandlers should be generated
 	App.Downloads=1
 	
 	'SetupInstructions. You can use HTML to format it
 	App.setupDescription= $"
-		<b>MID:</b>
+		<b>BV:</b>
     <ul>
-		<li>Go to https://music.163.com/</li>
-		<li>Login your Netease Music and go to personal page</li>
-		<li>and url will be https://music.163.com/#/user/home?id=XXXXXXX</li>
-		<li>XXXXXXX is your MID</li><br/><br/>
+		<li>your bilibili video BV</li>
 	</ul>
 	"$
 	
 	'IconIDs from AWTRIXER. You can add multiple if you want to display them at the same time
-	App.icons=Array As Int(1295,1296)
+	App.icons=Array As Int(1446,1445,1443,1442)
 	
 	'needed Settings for this App (Wich can be configurate from user via webinterface)
-	App.Settings=CreateMap("IP:PORT":"",MID":"")
+	App.Settings=CreateMap("IP:PORT":"",BV":"")
 	
 	'Tickinterval in ms (should be 65 by default, for smooth scrolling))
 	App.tick=65
@@ -70,7 +71,9 @@ Public Sub Initialize() As String
 End Sub
 
 Sub App_Started
-	scroll=1
+	scroll1=1
+	scroll2=1
+	scroll3=1
 End Sub
 
 'Called with every update from Awtrix
@@ -78,7 +81,7 @@ End Sub
 Sub App_startDownload(jobNr As Int)
 	Select jobNr
 		Case 1
-			App.Download("http://"&App.Get("IP:PORT")&"/neteasemusic/"&App.Get("MID"))
+			App.Download("http://"&App.Get("IP:PORT")&"/bilibilivideo/"&App.Get("BV"))
 	End Select
 
 End Sub
@@ -91,8 +94,10 @@ Sub App_evalJobResponse(Resp As JobResponse)
 					Dim parser As JSONParser
 					parser.Initialize(Resp.ResponseString)
 					Dim root As Map = parser.NextObject
-					fans = root.Get("fans")
-					nums = root.Get("music_num")
+					play_count = root.Get("play")
+					like_count = root.Get("like")
+					coin_count = root.Get("coin")
+					collect_count = root.Get("collect")
 			End Select
 		End If
 	Catch
@@ -103,17 +108,39 @@ End Sub
 
 'With this sub you build your frame.
 Sub App_genFrame
-	If App.startedAt<DateTime.Now-App.duration*1000/2 Then
-		App.genText(nums,True,scroll,Null,False)
-		App.drawBMP(0,scroll-1,App.getIcon(1296),8,8)
-		If scroll<9 Then
-			scroll=scroll+1
+	If App.startedAt<DateTime.Now-App.duration*1000/4 Then
+		If scroll1<10 Then
+			App.genText(play_count,True,scroll1,Null,False)
+			App.drawBMP(0,scroll1-1,App.getIcon(1442),8,8)
+			scroll1=scroll1+1
 		Else
-			App.genText(fans,True,scroll-8,Null,False)
-			App.drawBMP(0,scroll-9,App.getIcon(1295),8,8)
+			If App.startedAt<DateTime.Now-App.duration*1000*2/4 Then
+				If scroll2<10 Then
+					App.genText(like_count,True,scroll2,Null,False)
+					App.drawBMP(0,scroll2-1,App.getIcon(1445),8,8)
+					scroll2=scroll2+1
+				Else
+					If App.startedAt<DateTime.Now-App.duration*1000*3/4 Then
+						If scroll3<10 Then
+							App.genText(coin_count,True,scroll3,Null,False)
+							App.drawBMP(0,scroll3-1,App.getIcon(1443),8,8)
+							scroll3=scroll3+1
+						Else
+							App.genText(collect_count,True,1,Null,False)
+							App.drawBMP(0,0,App.getIcon(1446),8,8)
+						End If
+					Else
+						App.genText(coin_count,True,1,Null,False)
+						App.drawBMP(0,0,App.getIcon(1443),8,8)
+					End If
+				End If
+			Else
+				App.genText(like_count,True,1,Null,False)
+				App.drawBMP(0,0,App.getIcon(1445),8,8)
+			End If
 		End If
 	Else
-		App.genText(nums,True,1,Null,False)
-		App.drawBMP(0,0,App.getIcon(1296),8,8)
+		App.genText(play_count,True,1,Null,False)
+		App.drawBMP(0,0,App.getIcon(1442),8,8)
 	End If
 End Sub

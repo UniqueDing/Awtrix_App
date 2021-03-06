@@ -5,15 +5,15 @@ Library1=jcore
 Library2=json
 Library3=jrandomaccessfile
 Module1=AWTRIX
-Module2=Weibo
+Module2=BilibiliVideo
 NumberOfFiles=0
 NumberOfLibraries=3
 NumberOfModules=2
 Version=8.9
 @EndOfDesignText@
-
+'Draws a Rectangle'Non-UI application (console / server application)
 #Region Project Attributes 
-	#LibraryName: Weibo
+#LibraryName:BilibiliVideo
 #End Region
 
 Sub Process_Globals

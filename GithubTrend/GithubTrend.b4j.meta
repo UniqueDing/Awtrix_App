@@ -7,6 +7,6 @@ ModuleBreakpoints2=
 ModuleClosedNodes0=
 ModuleClosedNodes1=
 ModuleClosedNodes2=
-NavigationStack=Weibo,App_startDownload,69,6,Weibo,Class_Globals,5,0,Weibo,App_Started,67,0,Weibo,App_evalJobResponse,87,2,Weibo,App_genFrame,105,2,Weibo,Initialize,21,6
+NavigationStack=GithubTrend,Class_Globals,0,0,GithubTrend,Initialize,24,0
 SelectedBuild=0
 VisibleModules=1,2
