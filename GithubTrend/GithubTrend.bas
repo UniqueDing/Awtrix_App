@@ -21,7 +21,7 @@ Public Sub Initialize() As String
 	App.Name="GithubTrend"
 	
 	'Version of the App
-	App.Version="2.0"
+	App.Version="1.0"
 	
 	'Description of the App. You can use HTML to format it
 	App.Description="Show github trending top"
@@ -44,7 +44,7 @@ Public Sub Initialize() As String
 	'Tickinterval in ms (should be 65 by default)
 	App.Tick=65
 	
-    App.Settings=CreateMap("IP:PORT":"")
+    App.Settings=CreateMap("URL":"")
 	
 	App.MakeSettings
 	Return "AWTRIX20"
@@ -65,7 +65,7 @@ End Sub
 Sub App_startDownload(jobNr As Int)
 	Select jobNr
 		Case 1
-			App.Download("http://"&App.Get("IP:PORT")&"/githubtrend")
+			App.Download("http://"&App.Get("URL")&"/githubtrend")
 	End Select
 
 End Sub

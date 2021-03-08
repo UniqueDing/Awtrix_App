@@ -53,7 +53,7 @@ Public Sub Initialize() As String
 	
 
 	'needed Settings for this App (Wich can be configurate from user via webinterface)
-	App.Settings=CreateMap("IP:PORT":"","MID":"")
+	App.Settings=CreateMap("URL":"","MID":"")
 	
 	App.MakeSettings
 	Return "AWTRIX20"
@@ -77,7 +77,7 @@ End Sub
 Sub App_startDownload(jobNr As Int)
 	Select jobNr
 		Case 1
-			App.Download("http://"&App.Get("IP:PORT")&"/weibo/"&App.Get("MID"))
+			App.Download("http://"&App.Get("URL")&"/weibo/"&App.Get("MID"))
 	End Select
 
 End Sub

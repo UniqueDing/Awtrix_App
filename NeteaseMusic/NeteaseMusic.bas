@@ -60,7 +60,7 @@ Public Sub Initialize() As String
 	App.icons=Array As Int(1295,1296)
 	
 	'needed Settings for this App (Wich can be configurate from user via webinterface)
-	App.Settings=CreateMap("IP:PORT":"",MID":"")
+	App.Settings=CreateMap("URL":"","MID":"")
 	
 	'Tickinterval in ms (should be 65 by default, for smooth scrolling))
 	App.tick=65
@@ -78,7 +78,7 @@ End Sub
 Sub App_startDownload(jobNr As Int)
 	Select jobNr
 		Case 1
-			App.Download("http://"&App.Get("IP:PORT")&"/neteasemusic/"&App.Get("MID"))
+			App.Download("http://"&App.Get("URL")&"/neteasemusic/"&App.Get("MID"))
 	End Select
 
 End Sub
